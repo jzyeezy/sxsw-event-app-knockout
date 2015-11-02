@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link href="content/css/site.css" rel="stylesheet" />
+    <link href="content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="content/css/sb-admin.css" rel="stylesheet"/>
+    <link href="content/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body>    
+    <div id="wrapper">
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">SXSW Event Mapping</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li id="pillarlist">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#pillar-list"><i class="fa fa-fw fa-arrows-v"></i> Pick a Pillar <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="pillar-list" class="collapse picklist" data-bind="foreach: pillars">
+                            <li data-toggle="collapse" data-target="#pillar-list"><a href="#" data-bind="text: $data, click: $root.clickPillarItem"></a></li>
+                        </ul>
+                    </li>
+                    <li id="personlist">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#person-list"><i class="fa fa-fw fa-arrows-v"></i> Pick a Person <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="person-list" class="collapse picklist" data-bind="foreach: people">                            
+                            <li data-toggle="collapse" data-target="#person-list"><a href="#" data-bind="text: $data, click: $root.clickPersonItem"></a></li>
+                        </ul>
+                    </li>
+                    <li id="datelist">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#date-list"><i class="fa fa-fw fa-arrows-v"></i> Pick a Date <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="date-list" class="collapse picklist" data-bind="foreach: dates">                            
+                            <li data-toggle="collapse" data-target="#date-list"><a href="#" data-bind="text: $data, click: $root.clickDateItem"></a></li>
+                        </ul>
+                    </li>
+                    <li id="timelist">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#time-list"><i class="fa fa-fw fa-arrows-v"></i> Pick a Time <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="time-list" class="collapse picklist" data-bind="foreach: times">
+                            <li data-toggle="collapse" data-target="#time-list"><a href="#" data-bind="text: $data, click: $root.loadMap"></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>            
+        </nav>
+
+        <!-- Tab Panel - Contains the map canvas-->
+        <div id="page-wrapper">
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li id="time-tab-item" role="presentation" class="active"><a id="time-tab" href="#time" aria-controls="time" role="tab" data-toggle="tab" data-bind="click: tabClick">Time</a></li>
+                        <li id="name-tab-item" role="presentation"><a id="name-tab" href="#name" aria-controls="name" role="tab" data-toggle="tab" data-bind="click: tabClick">Name</a></li>
+                        <li id="place-tab-item" role="presentation"><a id="place-tab" href="#place" aria-controls="place" role="tab" data-toggle="tab" data-bind="click: tabClick">Place</a></li>
+                        <li id="pillar-day-tab-item" role="presentation"><a id="pillar-day-tab" href="#pillarDay" aria-controls="pillarDay" role="tab" data-toggle="tab" data-bind="click: tabClick">Pillars by Day</a></li>
+                        <li id="pillar-name-tab-item" role="presentation"><a id="pillar-name-tab" href="#pillarName" aria-controls="pillarName" role="tab" data-toggle="tab" data-bind="click: tabClick">Pillars by Name</a></li>
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="time">                        
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <span>You are viewing events on </span>
+                                <span class="redText" data-bind="text: selectedDate"></span>
+                                <span>occuring at </span>
+                                <span class="redText" data-bind="text: selectedTime"></span>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div role="tabpanel" class="tab-pane fade" id="name">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <span>You are viewing events for </span>
+                                <span class="redText" data-bind="text: selectedPerson"></span>
+                                <span>on</span>
+                                <span class="redText" data-bind="text: selectedDate"></span>
+                                <span>occuring at </span>
+                                <span class="redText" data-bind="text: selectedTime"></span>
+                                <div style="clear:both"></div>
+                                <span>Filter for preferred events: </span>
+                                <input type="checkbox" data-bind="checked: filterPreferred, click: filterForPreferredEvents" />
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="place">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <span>You are viewing events for </span>
+                                <span class="redText" data-bind="text: selectedPerson"></span>
+                                <span>on</span>
+                                <span class="redText" data-bind="text: selectedDate"></span>
+                                <div style="clear:both"></div>
+                                <span>Filter for preferred events: </span>
+                                <input type="checkbox" data-bind="checked: filterPreferred, click: filterForPreferredEvents" />
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="pillarDay">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <span>You are viewing events for the pillar </span>
+                                <span class="redText" data-bind="text: selectedPillar"></span>
+                                <span>on</span>
+                                <span class="redText" data-bind="text: selectedDate"></span>
+                                <div style="clear:both"></div>
+                                <span style="font-size:small; color:grey"><i>[Note: Events that are categorized against a pillar are inherently a "preferred event" in our schedules]</i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="pillarName">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <span>You are viewing events for the pillar </span>
+                                <span class="redText" data-bind="text: selectedPillar"></span>
+                                <span>for</span>
+                                <span class="redText" data-bind="text: selectedPerson"></span>
+                                <div style="clear:both"></div>
+                                <span style="font-size:small; color:grey"><i>[Note: Events that are categorized against a pillar are inherently a "preferred event" in our schedules]</i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="map-canvas"></div>
+                </div>
+            </div>
+    </div>
+
+
+    <script src="scripts/jquery-1.11.0.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/knockout-3.3.0.js"></script>    
+    <script src="https://maps.googleapis.com/maps/api/js"></script>    
+    <script src="scripts/app.js"></script>
+</body>
+</html>

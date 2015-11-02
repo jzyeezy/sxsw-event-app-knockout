@@ -1,0 +1,69 @@
+﻿body{
+    overflow:hidden;
+}
+
+.ui-tabs .ui-tabs-panel {
+    padding: 0px;
+}
+
+#map-canvas {
+    width: 100%;
+    height: auto;
+    background-color: #CCC;
+    /*position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;*/
+}
+
+.redText {
+    color:red;
+    font-weight:bold;
+}
+
+#dropdowns {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    text-align: center;
+}
+
+    #dropdowns label {
+        margin-right: 10px;
+        color: blue;
+        height:auto;
+    }
+
+    #dropdowns select {
+        margin-right: 30px;
+        height: auto;
+    }
+
+#person-selector-dropdown, #person-selector-label, #personlist, #pillarlist {
+    display: none;
+}
+
+.div-tab {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.dropdown {
+    width: auto;
+}
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    /* Styles */
+    #dropdowns{
+        height: 5%;
+    }
+
+    #dropdowns select {
+        margin-right: 30px;
+        height: 100%;
+    }
+}

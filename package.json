@@ -1,0 +1,12 @@
+{
+  "name": "sxsw-node",
+  "version": "1.0.0",
+  "description": "A SXSW event mapping app to show all the times and locations of events that our team wants to visit during the Interactive week",
+  "repository": {
+    "type": "git",
+    "url": "git://notyetpublished"
+  },
+  "dependencies": {
+    "express": "~4.11.2"
+  }
+}
